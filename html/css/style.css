@@ -1,48 +1,159 @@
 .main-container {
-    margin: 100px 300px 0px 300px;
-    height: 80px;
-    width: 700px;
-    box-shadow: 0px 20px 50px 10px wheat;
-}
-
-.container-one {
-    height: 40px;
-    display: flex;
+    width: 1300px;
+    height: 650px;
+    margin: 20px auto;
+    background-color: white;
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.5);
     position: relative;
 }
 
-.container-one .checkout {
-    margin: 10px;
-    display: inline-block;
-}
-
-.container-one .child-container {
+.child-container {
+    font-size: 18px;
+    padding: 10px;
     display: flex;
-    gap: 3px;
-    padding: 10px;
-    margin: 0px 60px 0px;
+    flex-direction: row;
+    position: relative;
+    border-bottom: 0.5px solid rgb(214, 209, 209);
 }
 
-.container-one .close {
-    padding: 10px;
+.child-of-child {
+    margin: 0px 80px;
+}
+
+.child-of-child li {
+    display: inline;
+    font-size: 18px;
+}
+
+.child-of-child li+li:before {
+    padding: 8px;
+    color: black;
+    content: "/";
+}
+
+.box--close {
+    padding: 5px;
     position: absolute;
     right: 0px;
 }
 
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.container-one {
+    width: 850px;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+}
+
 .container-two {
+    width: 850px;
+    height: 252px;
     display: flex;
 }
 
-.container-two .payment-block {
-    width: 450px;
-    display: inline-block;
-    padding: 10px;
-    background-color: #f0f0f0;
+.container--size {
+    width: 240px;
+    height: 200px;
 }
 
-.container-two .cart-block {
-    width: 250px;
-    background-color: #d3d3d3;
-    display: inline-block;
+.container-three {
+    width: 445px;
+    height: 606px;
+    position: absolute;
+    right: 0px;
+    background-color: rgb(214, 209, 209);
+}
+
+.container--shadow {
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.5);
+}
+
+.container-card {
+    display: flex;
+    padding: 20px;
+    margin: auto;
+    gap: 30px;
+}
+
+.container-form {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin: 50px 250px;
+}
+
+.container--modify {
+    width: 350px;
+    padding: 11px;
+}
+
+.container--btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 10px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    opacity: 0.9;
+}
+
+.container--btn:hover {
+    opacity: 1;
+}
+
+.container-division {
+    display: flex;
+    margin-top: 2px;
+}
+
+.container--size-half {
+    width: 160px;
+    margin: auto;
+    display: inline;
+}
+
+.filed-one {
+    display: flex;
+    gap: 10px;
     padding: 10px;
+    position: relative;
+}
+
+.image-logo {
+    width: 45px;
+    background-image: url(../images/background.jpg);
+    padding: 3px;
+}
+
+.container-price {
+    position: absolute;
+    right: 0px;
+    padding: 10px;
+}
+
+.container-total {
+    display: flex;
+    gap: 10px;
+    position: relative;
+    flex-direction: column;
+    margin: 60px 0px 0px 10px;
+}
+
+.container--left {
+    position: absolute;
+    left: 0px;
+    padding: 10px;
+    margin-top: 100px;
+}
+
+.container--heading {
+    padding: 10px;
+}
+
+html {
+    background-image: url(../images/background.jpg);
 }
