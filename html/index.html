@@ -25,51 +25,50 @@
         </div>
         <div class="container">
             <div class="container-one">
-                <div class="container--heading">
+                <div class="container--heading1">
                     <h2>Wallet</h2>
                     <hr>
                 </div>
                 <div class="container-card">
-                    <div class="container-discover">
+                    <div class="container-discover container--media-query">
                         <img class="container--size" src="./images/discover.png" alt="discover">
+                        <p>Ending with 8899</p>
                     </div>
-                    <div class="container-mastercard container--shadow">
+                    <div class="container-mastercard  container--shadow container--media-query">
                         <img class="container--size " src="./images/mastercard.png" alt="mastercard">
                         <p>Ending with 8899</p>
                     </div>
-                    <div class="container-visa">
+                    <div class="container-visa container--media-query">
                         <img class="container--size" src="./images/visa.png" alt="visa">
                         <p>Ending with 8899</p>
                     </div>
                 </div>
-                <div class="container--heading">
+                <div class="container--heading2">
                     <h2>New Card</h2>
                     <hr>
                 </div>
-
-            </div>
-            <div class="container-two">
-                <form action="index.js" method="POST">
-                    <div class="container-form">
-
-                        <label for="name"></label>
-                        <input class="container--modify" type="text" placeholder="Name on Card" name="name" id="name" required>
-                        <label for="card-number"></label>
-                        <input class="container--modify" type="password" placeholder="XXXX-XXXX-XXXX-XXXX" name="card-number" id="card-number" required>
-                        <div class="container-division">
-                            <label for="date"></label>
-                            <input class="container--modify container--size-half" type="text" placeholder="MM/YY" name="date" id="date" required>
-                            <label for="cvv"></label>
-                            <input class="container--modify container--size-half" type="text" placeholder="CVV" name="cvv" id="cvv" required>
+                <div class="container-two">
+                    <form action="index.js" method="POST">
+                        <div class="container-form">
+                            <label for="name"></label>
+                            <input class="container--modify" type="text" placeholder="Name on Card" name="name" id="name" required>
+                            <label for="card-number"></label>
+                            <input class="container--modify" type="password" placeholder="XXXX-XXXX-XXXX-XXXX" name="card-number" id="card-number" required>
+                            <div class="container-division">
+                                <label for="date"></label>
+                                <input class="container--modify container--size-half1" type="text" placeholder="MM/YY" name="date" id="date" required>
+                                <label for="cvv"></label>
+                                <input class="container--modify container--size-half2" type="text" placeholder="CVV" name="cvv" id="cvv" required>
+                            </div>
+                            <button class="container--btn" type="submit">
+                                Continue
+                            </button>
                         </div>
-                        <button class="container--btn" type="submit">
-                            Continue
-                        </button>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
             <div class="container-three">
-                <div class="filed-one">
+                <div class="field-one">
                     <div class="image-one"><img class="image-logo" src="./images/mobile-holder.jpg" alt="mobile-holder">
                     </div>
                     <div class="container__text">
@@ -78,16 +77,16 @@
                     <i class="container-price">$ 10.00</i>
                 </div>
                 <hr>
-                <div class="filed-one">
+                <div class="field-one">
                     <div class="image-one"><img class="image-logo" src="./images/rado.jpg" alt="rado watch">
                     </div>
-                    <div class="container__text">
+                    <div>
                         <pre>Rado Watch<br>Black<br><b>Quantity<b> 1</pre>
                     </div>
                     <i class="container-price">$ 10.00</i>
                 </div>
                 <hr>
-                <div class="filed-one">
+                <div class="field-one">
                     <div class="image-one"><img class="image-logo" src="./images/usb-c-2-micro.jpeg" alt="usb"></div>
                     <div class="container__text">
                         <pre>C type to Micro Convertor<br>Black<br><b>Quantity<b> 1</pre>
@@ -95,29 +94,28 @@
                     <i class="container-price">$ 10.00</i>
                 </div>
                 <hr>
-                <div class="filed-one">
+                <div class="field-one">
                     <div class="image-one"><img class="image-logo" src="./images/hard-case.jpg" alt="hard case">
                     </div>
-                    <div class="container__text">
+                    <div>
                         <pre>Mobile Case<br>Black<br><b>Quantity<b> 1</pre>
                     </div>
                     <i class="container-price">$ 10.00</i>
                 </div>
 
                 <div class="container-total">
-                    <div class="">
+                    <div>
                         <hr>
                     </div>
-                    <div class="">Sub Total <i class="container-price">$ 100.00</i><br>
+                    <div>Sub Total <i class="container-price">$ 100.00</i><br>
+
+                    </div>
+                    <div>Shipping <i class="container-price">$ 10.00</i><br>
+                    </div>
+                    <div>Taxes <i class="container-price">$ 5.00</i> <br>
                         <hr>
                     </div>
-                    <div class="">Shipping <i class="container-price">$ 10.00</i><br>
-                        <hr>
-                    </div>
-                    <div class="">Taxes <i class="container-price">$ 5.00</i> <br>
-                        <hr>
-                    </div>
-                    <div class="">Total <i class="container-price">$ 115.00</i></div>
+                    <div>Total <i class="container-price">$ 115.00</i></div>
                 </div>
             </div>
         </div>
