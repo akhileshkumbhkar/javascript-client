@@ -166,7 +166,7 @@
 }
 
 @media only screen and (max-width: 600px) {
-    .box {
+    .main-container {
         width: 850px;
         height: 1260px;
     }
