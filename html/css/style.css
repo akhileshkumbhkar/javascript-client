@@ -16,6 +16,7 @@
     border-bottom: 0.5px solid rgb(214, 209, 209);
 }
 
+
 .child-of-child {
     margin: 0px 80px;
 }
@@ -46,6 +47,7 @@
     height: 350px;
     display: flex;
     flex-direction: column;
+
 }
 
 .container-two {
@@ -165,6 +167,7 @@
     }
 }
 
+
 @media only screen and (max-width: 600px) {
     .main-container {
         width: 850px;
@@ -199,7 +202,10 @@
         margin-left: 10px;
     }
 }
+.main-container::-webkit-scrollbar {
+    display: none;
+  }
 
-html {
+.html {
     background-image: url(../images/background.jpg);
 }
