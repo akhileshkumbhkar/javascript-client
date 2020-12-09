@@ -1,7 +1,7 @@
 .main-container {
     width: 1300px;
     height: 650px;
-    margin: 20px auto;
+    margin: 100px auto;
     background-color: white;
     box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.5);
     position: relative;
@@ -15,6 +15,7 @@
     position: relative;
     border-bottom: 0.5px solid rgb(214, 209, 209);
 }
+
 
 .child-of-child {
     margin: 0px 80px;
@@ -39,7 +40,6 @@
 
 .container {
     display: flex;
-    flex-direction: column;
 }
 
 .container-one {
@@ -47,6 +47,7 @@
     height: 350px;
     display: flex;
     flex-direction: column;
+
 }
 
 .container-two {
@@ -89,6 +90,7 @@
 .container--modify {
     width: 350px;
     padding: 11px;
+    border: 1px solid black;
 }
 
 .container--btn {
@@ -110,13 +112,18 @@
     margin-top: 2px;
 }
 
-.container--size-half {
-    width: 160px;
-    margin: auto;
+.container--size-half1 {
+    width: 158px;
     display: inline;
 }
 
-.filed-one {
+.container--size-half2 {
+    width: 158px;
+    display: inline;
+    margin-left: 10px;
+}
+
+.field-one {
     display: flex;
     gap: 10px;
     padding: 10px;
@@ -154,6 +161,51 @@
     padding: 10px;
 }
 
-html {
+@media only screen and (max-width: 768px) {
+    .child-of-child {
+        display: none;
+    }
+}
+
+
+@media only screen and (max-width: 600px) {
+    .main-container {
+        width: 850px;
+        height: 1260px;
+    }
+    .container-three {
+        left: 0px;
+        width: 850px;
+    }
+    .container-one {
+        margin-top: 615px;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .main-container {
+        height: 1910px;
+    }
+    .container-card {
+        display: flex;
+        flex-direction: column;
+    }
+    .container--size {
+        width: 530px;
+        height: 250px;
+    }
+    .container--size-half1 {
+        width: 100px;
+    }
+    .container--size-half2 {
+        width: 216px;
+        margin-left: 10px;
+    }
+}
+.main-container::-webkit-scrollbar {
+    display: none;
+  }
+
+.html {
     background-image: url(../images/background.jpg);
 }
