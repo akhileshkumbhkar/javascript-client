@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.18.1/build/cssreset/cssreset-min.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UI</title>
+</head>
+
+<body>
+    <div class="main-container">
+        <div class="child-container">
+            <p><b>Checkout</b></p>
+            <div class="child-of-child">
+                <ul>
+                    <li>Shipping</li>
+                    <li><b>Payment Method</b></li>
+                    <li>Confirmation</li>
+                </ul>
+            </div>
+            <i class="fa fa-window-close box--close"></i>
+        </div>
+        <div class="container">
+            <div class="container-one">
+                <div class="container--heading1">
+                    <h2>Wallet</h2>
+                </div>
+                <div class="container-card">
+                    <div class="container-discover container--media-query">
+                        <img class="container--size" src="./images/discover.png" alt="discover">
+                        <p>Ending with 8899</p>
+                    </div>
+                    <div class="container-mastercard  container--shadow container--media-query">
+                        <img class="container--size " src="./images/mastercard.png" alt="mastercard">
+                        <p>Ending with 8899</p>
+                    </div>
+                    <div class="container-visa container--media-query">
+                        <img class="container--size" src="./images/visa.png" alt="visa">
+                        <p>Ending with 8899</p>
+                    </div>
+                </div>
+                <div class="container--heading2">
+                    <h2>New Card</h2>
+                </div>
+                <div class="container-two">
+                    <form action="index.js" method="POST">
+                        <div class="container-form">
+                            <label for="name"></label>
+                            <input class="container--modify" type="text" placeholder="Name on Card" name="name" id="name" required>
+                            <label for="card-number"></label>
+                            <input class="container--modify" type="password" placeholder="XXXX-XXXX-XXXX-XXXX" name="card-number" id="card-number" required>
+                            <div class="container-division">
+                                <label for="date"></label>
+                                <input class="container--modify container--size-half1" type="text" placeholder="MM/YY" name="date" id="date" required>
+                                <label for="cvv"></label>
+                                <input class="container--modify container--size-half2" type="text" placeholder="CVV" name="cvv" id="cvv" required>
+                            </div>
+                            <button class="container--btn" type="submit">
+                                Continue
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="container-three">
+                <div class="field-one">
+                    <div class="image-one"><img class="image-logo" src="./images/mobile-holder.jpg" alt="mobile-holder">
+                    </div>
+                    <div class="container__text">
+                        <pre>Mobile Holder<br>Black<br><b>Quantity<b> 1</pre>
+                    </div>
+                    <i class="container-price">$ 10.00</i>
+                </div>
+                <div class="field-one">
+                    <div class="image-one"><img class="image-logo" src="./images/rado.jpg" alt="rado watch">
+                    </div>
+                    <div>
+                        <pre>Rado Watch<br>Black<br><b>Quantity<b> 1</pre>
+                    </div>
+                    <i class="container-price">$ 10.00</i>
+                </div>
+                <div class="field-one">
+                    <div class="image-one"><img class="image-logo" src="./images/usb-c-2-micro.jpeg" alt="usb"></div>
+                    <div class="container__text">
+                        <pre>C type to Micro Convertor<br>Black<br><b>Quantity<b> 1</pre>
+                    </div>
+                    <i class="container-price">$ 10.00</i>
+                </div>
+                <div class="field-one">
+                    <div class="image-one"><img class="image-logo" src="./images/hard-case.jpg" alt="hard case">
+                    </div>
+                    <div>
+                        <pre>Mobile Case<br>Black<br><b>Quantity<b> 1</pre>
+                    </div>
+                    <i class="container-price">$ 10.00</i>
+                </div>
+                <div class="container-total">
+                </div>
+                <div>Sub Total <i class="container-price">$ 100.00</i><br>
+                </div>
+                <div>Shipping <i class="container-price">$ 10.00</i><br>
+                </div>
+                <div>Taxes <i class="container-price">$ 5.00</i> <br>
+                </div>
+                <div>Total <i class="container-price">$ 115.00</i></div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

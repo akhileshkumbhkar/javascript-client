@@ -1,47 +1,27 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import validField, { disabledField, errorField, color } from './style';
 
-function TextField(props) {
+import PropTypes from 'prop-types';
+
+import { Error, Input } from './style';
+
+const TextField = (props) => {
   const { value, disabled, error } = props;
   if (error) {
     return (
-      <span>
-        <b>An input with errors</b>
-        <br />
-        <br />
-        <input type="text" style={errorField} value={error} />
-        <br />
-        <span style={color}>Could not be greater than</span>
-        <br />
-      </span>
-    );
-  }
-  if (disabled) {
-    return (
-      <span>
-        <b>This is a Disabled Input</b>
-        <br />
-        <br />
-        <input type="text" style={disabledField} value="Disabled Input" disabled={disabled} />
-        <br />
-      </span>
+      <>
+        <Input type="text" value={value} error />
+        <Error>{error}</Error>
+      </>
     );
   }
   return (
-    <span>
-      <b>A Valid Input</b>
-      <br />
-      <br />
-      <input type="text" style={validField} defaultValue={value} />
-      <br />
-    </span>
+    <Input type="text" value={value} disabled={disabled} />
   );
-}
+};
 
 TextField.propTypes = {
   value: PropTypes.string,
-  disabled: PropTypes.bool,
+  disabled: PropTypes.string,
   error: PropTypes.string,
 };
 TextField.defaultProps = {

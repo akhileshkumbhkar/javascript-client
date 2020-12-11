@@ -1,23 +1,29 @@
-export const disabledField = {
-  padding: '5px',
-  width: '1475px',
-  height: '25p',
-};
+import styled, { css } from 'styled-components';
 
-const validField = {
-  ...disabledField,
-  border: '4px solid brown',
-  'border-width': '2px',
-};
+const Div = styled.div`
+2%;
+`;
+const Error = styled.p`
+color: red;
+`;
+const Input = styled.input`
+width: 100%;
+padding: 0.7%;
+border: 1px solid gray;
+border-radius: 5px;
+color: solid gray;
+${(props) => props.error
+&& css`
+border: 1px solid red;
+color: red;
+`};
+}
+${(props) => (props.value && !props.disabled && !props.error)
+&& css`
+border: 1px solid orange;
+color: black;
+`};
+}
+`;
 
-export const color = {
-  color: 'red',
-};
-
-export const errorField = {
-  ...validField,
-  border: '4px solid red',
-  'border-width': '2px',
-};
-
-export default validField;
+export { Div, Error, Input };
