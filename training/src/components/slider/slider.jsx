@@ -26,7 +26,7 @@ class Slider extends Component {
     }, duration);
   }
 
-  componentWillUnmount =() => {
+  componentWillUnmount = () => {
     clearInterval(this.id);
   }
 
@@ -36,19 +36,12 @@ class Slider extends Component {
       altText, height, duration, banner,
     } = this.props;
     const { defaultbanner } = this.props;
-    if (current === -1 || banner.length === 0) {
-      return (
-        <>
-          <div align="center">
-            <Img src={`${PUBLIC_IMAGE_FOLDER}${defaultbanner}`} alt={altText} height={height} duration={duration} />
-          </div>
-        </>
-      );
-    }
+    const image = current === -1 || banner.length === 0 ? `${defaultbanner}` : `${PUBLIC_IMAGE_FOLDER}${banner[current]}`;
+
     return (
       <>
         <div align="center">
-          <Img src={`${PUBLIC_IMAGE_FOLDER}${banner[current]}`} alt={altText} height={height} duration={duration} />
+          <Img src={image} alt={altText} height={height} duration={duration} />
         </div>
       </>
     );
