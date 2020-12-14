@@ -4,9 +4,12 @@ const Select = styled.select`
 width: 100%;
 padding: 1%;
 ${(props) => props.error
-  && css`
-  border: 1px solid red;
+  && css` 
+  border: 1px solid black;
   `};
 `;
+const Err = styled.p`
+color: red;
+`;
 
-export { Select };
+export { Select, Err };
