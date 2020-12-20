@@ -48,4 +48,5 @@ Calculation.propTypes = {
 Calculation.defaultProps = {
   children: null,
 };
+
 export default Calculation;
