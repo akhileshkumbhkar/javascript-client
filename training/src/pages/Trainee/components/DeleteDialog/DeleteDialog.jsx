@@ -12,7 +12,7 @@ import {
 
 const useStyles = () => ({
   button_color: {
-    backgroundColor: 'blue',
+    backgroundColor: 'red',
     color: 'white',
   },
 });

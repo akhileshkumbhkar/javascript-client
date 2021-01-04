@@ -19,8 +19,8 @@ import PersonIcon from '@material-ui/icons/Person';
 
 const useStyles = () => ({
   button_color: {
-    backgroundColor: 'blue',
-    color: 'black',
+    backgroundColor: 'green',
+    color: 'white',
   },
   button_error: {
     backgroundColor: '#bbb9b9',
