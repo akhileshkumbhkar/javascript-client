@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import * as yup from 'yup';
+import { MyContext } from '../../../../contexts';
 import {
   TextField,
   Dialog,
@@ -19,8 +20,8 @@ import PersonIcon from '@material-ui/icons/Person';
 
 const useStyles = () => ({
   button_color: {
-    backgroundColor: 'green',
-    color: 'white',
+    backgroundColor: 'blue',
+    color: 'black',
   },
   button_error: {
     backgroundColor: '#bbb9b9',
@@ -166,8 +167,13 @@ class EditDialog extends React.Component {
             <Button onClick={handleEditClose} color="primary">
               Cancel
             </Button>
+            <MyContext.Consumer>
+          {({ openSnackBar }) => (
             <Button
-              onClick={() => handleEdit(name, email)}
+              onClick={() => {
+                handleEdit(name, email);
+                openSnackBar('This is a successfully updated message ! ', 'success');
+              }}
               className={
                 (name === data.name && email === data.email) || this.hasErrors()
                   ? classes.button_error
@@ -180,6 +186,8 @@ class EditDialog extends React.Component {
             >
               Submit
             </Button>
+                 )}
+                 </MyContext.Consumer>
           </DialogActions>
         </Dialog>
       </div>
