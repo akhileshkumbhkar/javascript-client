@@ -19,24 +19,30 @@ const useStyles = makeStyles((theme) => ({
 
 function NavBar() {
   const classes = useStyles();
+
   return (
-    <>
-      <div className={classes.root} style={{ margin: 0 }}>
-        <CssBaseline />
-        <AppBar position="static">
-          <Toolbar>
-            <Typography variant="h6" className={classes.title}>
-              Trainee Portal
-            </Typography>
-            <Button component={Link} to="/Trainee" color="inherit">TRAINEE</Button>
-            <Button component={Link} to="/TextFieldDemo" color="inherit">TEXTFIELD DEMO</Button>
-            <Button component={Link} to="/InputDemo" color="inherit">INPUT DEMO</Button>
-            <Button component={Link} to="/ChildrenDemo" color="inherit">CHILDREN DEMO</Button>
-            <Button color="inherit" className={classes.logout}>LOGOUT</Button>
-          </Toolbar>
-        </AppBar>
-      </div>
-    </>
+    <div className={classes.root} style={{ margin: 0 }}>
+      <CssBaseline />
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6" className={classes.title}>
+            Trainee Portal
+          </Typography>
+          <Button component={Link} to="/Trainee" color="inherit">TRAINEE</Button>
+          <Button component={Link} to="/TextFieldDemo" color="inherit">TEXTFIELD DEMO</Button>
+          <Button component={Link} to="/InputDemo" color="inherit">INPUT DEMO</Button>
+          <Button component={Link} to="/ChildrenDemo" color="inherit">CHILDREN DEMO</Button>
+          <Button
+            color="inherit"
+            style={{ marginLeft: 30 }}
+            href="/login"
+            onClick={() => { localStorage.clear('token'); }}
+          >
+            LOGOUT
+          </Button>
+        </Toolbar>
+      </AppBar>
+    </div>
   );
 }
 export default NavBar;
