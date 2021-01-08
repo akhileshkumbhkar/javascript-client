@@ -6,17 +6,12 @@ const callApi = async (data, method, url) => {
   console.log('Data inside callapi :', data);
   try {
     const baseUrl = 'http://localhost:9000/api' + url;
-    const { email, password } = data;
     const response = await axios({
       method,
       url: baseUrl,
-      data: {
-        email,
-        password,
-      },
+      data,
     });
     localStorage.set('token', response.data);
-    console.log('res :', response.data.status);
     const token = localStorage.get('token');
     console.log('Token:::::', token);
   } catch (error) {
