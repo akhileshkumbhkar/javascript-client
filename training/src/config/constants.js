@@ -1,3 +1,4 @@
+/* eslint-disable */
 import * as yup from 'yup';
 
 export const PUBLIC_IMAGE_FOLDER = '/images/';
@@ -17,6 +18,7 @@ const selectOptions = [
     label: 'Football',
     value: 'football',
   },
+
 ];
 
 const radioOptionsCricket = [
@@ -47,7 +49,9 @@ const radioOptionsFootball = [
     label: 'Defender',
     value: 'defender',
   },
+
 ];
+
 const schema = yup.object().shape({
   email: yup.string()
     .trim().email().required('Email Address is a required field'),
