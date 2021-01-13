@@ -2,7 +2,7 @@ import moment from 'moment';
 
 const getDateFormatted = (date) => moment(date).format('dddd, MMMM Do YYYY, h:mm:ss a');
 
-const trainee = [
+const trainees = [
   {
     id: '5c6c47af7740654f0915fac9',
     name: 'Sachin Tendulkar',
@@ -35,4 +35,4 @@ const trainee = [
   },
 ];
 
-export default { trainee, getDateFormatted };
+export default { trainees, getDateFormatted };

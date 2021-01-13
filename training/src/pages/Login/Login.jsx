@@ -22,19 +22,19 @@ const Design = (theme) => ({
   icon: {
     background: 'red',
     marginLeft: theme.spacing(22),
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(2),
   },
   main: {
     width: 400,
-    marginTop: theme.spacing(25),
-    marginLeft: theme.spacing(50),
+    marginTop: theme.spacing(20),
+    marginLeft: theme.spacing(58),
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
 });
 class Login extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       email: '',
@@ -61,17 +61,16 @@ class Login extends React.Component {
       this.setState({ [key]: value });
     };
 
-    onClickHandler = async (data, openSnackBar) => {
+    onClickHandler = async (data , openSnackBar) => {
       console.log('Data is :', data);
       this.setState({
         loading: true,
         hasError: true,
       });
-     const response1 = await callApi(data, 'post', '/user/login');
-      localStorage.set('token', response1.data)
+     const response = await callApi(data, 'post', '/user/login');
       this.setState({ loading: false });
-      const response = localStorage.get('token');
-      if (response !== 'undefined') {
+      if (response.status === 200) {
+        localStorage.set('token', response.data)
         this.setState({
           redirect: true,
           hasError: false,
