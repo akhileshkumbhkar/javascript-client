@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { MyContext } from '../../../../contexts/index';
 import callApi from '../../../../libs/utils/api';
 
-class DeleteDialog extends Component {
+class RemoveDialog extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -98,10 +98,10 @@ render() {
 }
 }
 
-DeleteDialog.propTypes = {
+RemoveDialog.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   data: PropTypes.objectOf(PropTypes.string).isRequired,
 };
-export default DeleteDialog;
+export default RemoveDialog;

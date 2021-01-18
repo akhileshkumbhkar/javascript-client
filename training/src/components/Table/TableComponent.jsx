@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+/* eslint-disable */
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -23,11 +23,11 @@ const useStyles = (theme) => ({
       cursor: 'pointer',
     },
   },
-
 });
 
 function TableComponent(props) {
   const {
+    // eslint-disable-next-line react/prop-types
     classes, data, column, order, orderBy, onSort, onSelect, count, page, actions,
     rowsPerPage, onChangePage, onChangeRowsPerPage,
   } = props;
@@ -38,21 +38,23 @@ function TableComponent(props) {
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
-            {column.map(({ align, label }) => (
-              <TableCell
-                className={classes.column}
-                align={align}
-                sortDirection={orderBy === label ? order : false}
-              >
-                <TableSortLabel
-                  active={orderBy === label}
-                  direction={orderBy === label ? order : 'asc'}
-                  onClick={onSort(label)}
+            {
+              column.map(({ align, label }) => (
+                <TableCell
+                  className={classes.column}
+                  align={align}
+                  sortDirection={orderBy === label ? order : false}
                 >
-                  {label}
-                </TableSortLabel>
-              </TableCell>
-            ))}
+                  <TableSortLabel
+                    active={orderBy === label}
+                    direction={orderBy === label ? order : 'asc'}
+                    onClick={onSort(label)}
+                  >
+                    {label}
+                  </TableSortLabel>
+                </TableCell>
+              ))
+            }
           </TableRow>
         </TableHead>
         <TableBody>

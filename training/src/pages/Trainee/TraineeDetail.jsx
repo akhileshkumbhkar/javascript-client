@@ -5,7 +5,7 @@ import moment from 'moment';
 import {
   withStyles, Card, CardContent, Typography, CardMedia, Button,
 } from '@material-ui/core';
-import trainees from './Data/trainee';
+import trainees from './data/trainee';
 import NotFound from '../NoMatch';
 
 const style = (theme) => ({
