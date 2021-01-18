@@ -87,7 +87,6 @@ class TraineeList extends React.Component {
     });
   };
 
-  // eslint-disable-next-line no-unused-vars
   handleRemoveDialogOpen = (element) => (event) => {
     this.setState({
       RemoveOpen: true,
@@ -107,7 +106,6 @@ class TraineeList extends React.Component {
       RemoveOpen: false,
     });
     console.log('value trainee', value);
-    // eslint-disable-next-line no-console
     console.log('Deleted Item ', deleteData);
     const { createdAt } = deleteData;
     const isAfter = moment(createdAt).isSameOrAfter('2019-02-14T18:15:11.778Z');
@@ -118,7 +116,6 @@ class TraineeList extends React.Component {
     value(message, status);
   };
 
-  // eslint-disable-next-line no-unused-vars
   handleEditDialogOpen = (element) => (event) => {
     this.setState({
       EditOpen: true,
@@ -136,7 +133,6 @@ class TraineeList extends React.Component {
     this.setState({
       EditOpen: false,
     });
-    // eslint-disable-next-line no-console
     console.log('Edited Item ', { name, email });
     const message = 'This is a success message';
     const status = 'success';
@@ -148,7 +144,6 @@ class TraineeList extends React.Component {
       return;
     }
     this.setState({
-      // snackbarOpen: false,
     });
   };
 
