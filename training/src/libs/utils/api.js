@@ -1,25 +1,26 @@
-/* eslint-disable */
 import axios from 'axios';
 import localStorage from 'local-storage';
 
+// eslint-disable-next-line consistent-return
 const callApi = async (data, method, url) => {
-  console.log('Data inside callapi ', data);
   try {
-    console.log('inside try of api')
-    const baseUrl = 'http://localhost:9000/api' + url;
+    const baseUrl = `http://localhost:9001/api/${url}`;
     const response = await axios({
       method,
       url: baseUrl,
       data,
       headers: {
-       authorization: localStorage.get('token'),
+        authorization: localStorage.get('token'),
       },
     });
-    console.log('res in api :', response);
+    // eslint-disable-next-line no-console
+    console.log('TokenResponse:::::', response);
     return response.data;
   } catch (error) {
-    console.log('Inside catch of api', error , error.response);
-    return { status: 'error', message: 'This is a error message' };
+    // eslint-disable-next-line no-console
+    console.log('Inside catch', error);
+    return { status: 'error', message: 'Incorrect LOgin' };
   }
 };
+
 export default callApi;

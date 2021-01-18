@@ -1,13 +1,14 @@
-/* eslint-disable no-console */
+/* eslint-disable */
 import React from 'react';
 import PropTypes from 'prop-types';
+import * as moment from 'moment';
 import { Button, withStyles } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { AddDialog, EditDialog, DeleteDialog } from './components/index';
+import { AddDialog, EditDialog, RemoveDialog } from './components/index';
 import { TableComponent } from '../../components';
 import callApi from '../../libs/utils/api';
-import { MyContext } from '../../contexts/index';
+import   trainees  from './data/trainee';
 
 const useStyles = (theme) => ({
   root: {
@@ -27,7 +28,6 @@ class TraineeList extends React.Component {
       order: 'asc',
       EditOpen: false,
       RemoveOpen: false,
-      message: '',
       editData: {},
       deleteData: {},
       page: 0,
@@ -56,12 +56,15 @@ class TraineeList extends React.Component {
     });
   };
 
-  handleSubmit = (data) => {
+  handleSubmit = (data, value) => {
     this.setState({
       open: false,
     }, () => {
-      console.log('Data :', data);
+      console.log(data);
     });
+    const message = 'This is Success Message';
+    const status = 'success';
+    value(message, status);
   }
 
   handleSelect = (event) => {
@@ -98,12 +101,21 @@ class TraineeList extends React.Component {
     });
   };
 
-  handleRemove = () => {
+  handleRemove = (value) => {
     const { deleteData } = this.state;
     this.setState({
       RemoveOpen: false,
     });
+    console.log('value trainee', value);
+    // eslint-disable-next-line no-console
     console.log('Deleted Item ', deleteData);
+    const { createdAt } = deleteData;
+    const isAfter = moment(createdAt).isSameOrAfter('2019-02-14T18:15:11.778Z');
+    const message = isAfter
+      ? 'This is a success message!'
+      : 'This is an error message!';
+    const status = isAfter ? 'success' : 'error';
+    value(message, status);
   };
 
   // eslint-disable-next-line no-unused-vars
@@ -120,43 +132,54 @@ class TraineeList extends React.Component {
     });
   };
 
-  handleEdit = (name, email) => {
+  handleEdit = (name, email, value) => {
     this.setState({
       EditOpen: false,
     });
+    // eslint-disable-next-line no-console
     console.log('Edited Item ', { name, email });
+    const message = 'This is a success message';
+    const status = 'success';
+    value(message, status);
+  };
+
+  handlesnackbarClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    this.setState({
+      // snackbarOpen: false,
+    });
   };
 
   componentDidMount = () => {
+    const { limit, skip, dataObj } = this.state;
     this.setState({ loading: true });
     const value = this.context;
-    console.log('val :', value);
-    // eslint-disable-next-line consistent-return
-    callApi({ }, 'get', `/trainee?skip=${0}&limit=${100}`).then((response) => {
-      if (response.record === undefined) {
+    console.log('TraineeList value', value);
+    callApi({}, 'get', `trainee/?skip=${0}&limit=${20}`).then((response) => {
+      console.log('List Response',response);
+      if (response.data === undefined) {
         this.setState({
           loading: false,
-          message: 'Error, While fetching the Data',
+          message: 'This is an error while displaying Trainee',
         }, () => {
-          const { message } = this.state;
-          value.openSnackBar(message, 'error');
         });
       } else {
-        console.log('res inside traineelist :', response);
-        const { record } = response;
-        console.log('records aa :', record);
-        this.setState({ dataObj: record, loading: false, Count: 100 });
+        const records = response.data[0];
+        this.setState({ dataObj: records, loading: false, Count: 100 });
         return response;
       }
+      console.log('dataObj Response : ', response);
     });
   }
 
   render() {
     const {
       open, order, orderBy, page,
-      rowsPerPage, EditOpen, RemoveOpen, editData, deleteData, loading, dataObj, Count,
+      rowsPerPage, EditOpen, RemoveOpen, editData,
+      loading, dataObj, Count,
     } = this.state;
-    console.log('data inside traineelist :', dataObj);
     const { classes } = this.props;
     return (
       <>
@@ -173,14 +196,14 @@ class TraineeList extends React.Component {
             Editopen={EditOpen}
             handleEditClose={this.handleEditClose}
             handleEdit={this.handleEdit}
-            data={editData}
+            data={dataObj}
           />
           <br />
-          <DeleteDialog
-            data={deleteData}
+          <RemoveDialog
+            openRemove={RemoveOpen}
             onClose={this.handleRemoveClose}
-            onSubmit={this.handleRemove}
-            open={RemoveOpen}
+            remove={this.handleRemove}
+            rmdata={dataObj}
           />
           <br />
           <br />
@@ -225,15 +248,14 @@ class TraineeList extends React.Component {
             count={Count}
             page={page}
             onChangePage={this.handleChangePage}
-            rowsPerPage={rowsPerPage}
             onChangeRowsPerPage={this.handleChangeRowsPerPage}
+            rowsPerPage={rowsPerPage}
           />
         </div>
       </>
     );
   }
 }
-TraineeList.contextType = MyContext;
 TraineeList.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
 };

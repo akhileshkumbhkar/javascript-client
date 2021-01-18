@@ -15,39 +15,39 @@ class SnackBarProvider extends React.Component {
     };
   }
 
-handleSnackBar = (message, status) => {
-  this.setState({
-    message,
-    status,
-    open: true,
-  });
-}
+  handleSnackBar = (message, status) => {
+    this.setState({
+      message,
+      status,
+      open: true,
+    });
+  }
 
-handleCloseSnackBar = (message) => {
-  this.setState({
-    message,
-    open: false,
-  });
-}
+  handleCloseSnackBar = (message) => {
+    this.setState({
+      message,
+      open: false,
+    });
+  }
 
-render() {
-  const { children } = this.props;
-  const { message, status, open } = this.state;
-  return (
-    <>
-      <MyContext.Provider
-        value={{
-          state: { message, status, open },
-          openSnackBar: this.handleSnackBar,
-          closeSnackBar: this.handleCloseSnackBar,
-        }}
-      >
-        {children}
-        <CustomizedSnackbars />
-      </MyContext.Provider>
-    </>
-  );
-}
+  render() {
+    const { children } = this.props;
+    const { message, status, open } = this.state;
+    return (
+      <>
+        <MyContext.Provider
+          value={{
+            state: { message, status, open },
+            openSnackBar: this.handleSnackBar,
+            closeSnackBar: this.handleCloseSnackBar,
+          }}
+        >
+          {children}
+          <CustomizedSnackbars />
+        </MyContext.Provider>
+      </>
+    );
+  }
 }
 // eslint-disable-next-line react/jsx-props-no-spreading
 const Alert = (props) => <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -66,7 +66,7 @@ const CustomizedSnackbars = () => {
   };
   return (
     <div>
-      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
         {status === 'success' ? (
           <Alert onClose={handleClose} severity="success">
             {message}

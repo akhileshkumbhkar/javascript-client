@@ -1,22 +1,23 @@
-/* eslint-disable no-console */
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Button, Dialog, DialogTitle, DialogContent, DialogContentText, CircularProgress,
+  Button, Dialog, DialogTitle, DialogContent, DialogContentText,
+  DialogActions, CircularProgress,
 } from '@material-ui/core';
 import { Email, VisibilityOff, Person } from '@material-ui/icons';
 import { withStyles } from '@material-ui/core/styles';
+import localStorage from 'local-storage';
 import schema from './Schema';
-import Handler from './Handler';
-import callApi from '../../../../libs/utils/api';
+import DialogField from './DialogField';
 import { MyContext } from '../../../../contexts';
+import callApi from '../../../../libs/utils/api';
 
-const passwordStyle = () => ({
-  passfield: {
+const stylePassword = () => ({
+  passwordField: {
     display: 'flex',
     flexdirection: 'row',
   },
-  pass: {
+  passwordItem: {
     flex: 1,
   },
 });
@@ -37,8 +38,6 @@ class AddDialog extends React.Component {
       password: '',
       confirmPassword: '',
       loading: false,
-      hasError: false,
-      message: '',
       touched: {
         name: false,
         email: false,
@@ -52,34 +51,6 @@ class AddDialog extends React.Component {
     this.setState({ [key]: value });
   };
 
-  onClickHandler = async (data, openSnackBar) => {
-    this.setState({
-      loading: true,
-      hasError: true,
-    });
-    const response = await callApi(data, 'post', '/trainee');
-    console.log('data :', data);
-    this.setState({ loading: false });
-    console.log('res :', response);
-    if (response.status === 'OK') {
-      this.setState({
-        hasError: false,
-        message: 'This is a success message',
-      }, () => {
-        const { message } = this.state;
-        openSnackBar(message, 'success');
-      });
-    } else {
-      this.setState({
-        hasError: false,
-        message: 'error in submitting',
-      }, () => {
-        const { message } = this.state;
-        openSnackBar(message, 'error');
-      });
-    }
-  }
-
     hasErrors = () => {
       try {
         schema.validateSync(this.state);
@@ -89,7 +60,6 @@ class AddDialog extends React.Component {
       return false;
     }
 
-    // eslint-disable-next-line consistent-return
     getError = (field) => {
       const { touched } = this.state;
       if (touched[field] && this.hasErrors()) {
@@ -100,6 +70,7 @@ class AddDialog extends React.Component {
           return err.message;
         }
       }
+      return '';
     };
 
     isTouched = (field) => {
@@ -119,6 +90,33 @@ class AddDialog extends React.Component {
       return '';
     }
 
+    onClickHandler = async (data, openSnackBar) => {
+      this.setState({
+        loading: true,
+        hasError: true,
+      });
+      await callApi(data, 'post', 'trainee');
+      this.setState({ loading: false });
+      const Token = localStorage.get('token');
+      if (Token !== 'undefined') {
+        this.setState({
+          hasError: false,
+          message: 'This is a successfully added trainee message',
+        }, () => {
+          const { message } = this.state;
+          openSnackBar(message, 'success');
+        });
+      } else {
+        this.setState({
+          hasError: false,
+          message: 'error in submitting',
+        }, () => {
+          const { message } = this.state;
+          openSnackBar(message, 'error');
+        });
+      }
+    }
+
     formReset = () => {
       this.setState({
         name: '',
@@ -133,15 +131,12 @@ class AddDialog extends React.Component {
       const {
         open, onClose, classes,
       } = this.props;
-      // eslint-disable-next-line no-shadow
       const {
-        // eslint-disable-next-line no-shadow
-        name, email, password, loading,
+        name, email, password, confirmPassword, loading,
       } = this.state;
-      const ans = [];
+      const textBox = [];
       Object.keys(constant).forEach((key) => {
-        // console.log('key:', key);
-        ans.push(<Handler
+        textBox.push(<DialogField
           label={key}
           onChange={this.handleChange(key)}
           onBlur={() => this.isTouched(key)}
@@ -154,42 +149,44 @@ class AddDialog extends React.Component {
 
       return (
         <>
-          <Dialog open={open} onClose={onClose} aria-labelledby="form-dialog-title">
+          <Dialog open={open} onClose={onClose}>
             <DialogTitle id="form-dialog-title">Add Trainee</DialogTitle>
             <DialogContent>
               <DialogContentText>
                 Enter your trainee details
               </DialogContentText>
               <div>
-                {ans[0]}
+                {textBox[0]}
               </div>
               &nbsp;
               <div>
-                {ans[1]}
+                {textBox[1]}
               </div>
               &nbsp;
-              <div className={classes.passfield}>
-                <div className={classes.pass}>
-                  {ans[2]}
+              <div className={classes.passwordField}>
+                <div className={classes.passwordItem}>
+                  {textBox[2]}
                 </div>
                 &nbsp;
                 &nbsp;
-                <div className={classes.pass}>
-                  {ans[3]}
+                <div className={classes.passwordItem}>
+                  {textBox[3]}
                 </div>
               </div>
           &nbsp;
+            </DialogContent>
+            <DialogActions>
               <div align="right">
                 <Button onClick={onClose} color="primary">CANCEL</Button>
                 <MyContext.Consumer>
                   {({ openSnackBar }) => (
                     <Button
-                      variant="contained"
                       color="primary"
+                      variant="contained"
                       disabled={this.hasErrors()}
                       onClick={() => {
                         this.onClickHandler({
-                          name, email, password,
+                          name, email, password, confirmPassword,
                         }, openSnackBar);
                         this.formReset();
                       }}
@@ -203,13 +200,13 @@ class AddDialog extends React.Component {
                   )}
                 </MyContext.Consumer>
               </div>
-            </DialogContent>
+            </DialogActions>
           </Dialog>
         </>
       );
     }
 }
-export default withStyles(passwordStyle)(AddDialog);
+export default withStyles(stylePassword)(AddDialog);
 AddDialog.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
