@@ -5,7 +5,7 @@ import {
   Table, TableCell, TableContainer, TableHead, TableRow, Paper, withStyles, TableBody,
   TableSortLabel, TablePagination, IconButton,
 } from '@material-ui/core';
-import { hoc } from '../HOC/index';
+import { hoc } from '../HOC';
 
 const useStyles = (theme) => ({
   table: {
