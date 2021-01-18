@@ -143,8 +143,6 @@ class TraineeList extends React.Component {
     if (reason === 'clickaway') {
       return;
     }
-    this.setState({
-    });
   };
 
   componentDidMount = () => {
