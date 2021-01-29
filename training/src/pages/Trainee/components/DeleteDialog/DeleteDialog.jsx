@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { MyContext } from '../../../../contexts/index';
 import callApi from '../../../../libs/utils/api';
 
-class RemoveDialog extends Component {
+class DeleteDialog extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -21,6 +21,7 @@ class RemoveDialog extends Component {
   }
 
 handleChange = (prop) => (event) => {
+  // eslint-disable-next-line no-console
   this.setState({ [prop]: event.target.value }, () => console.log(this.state));
 };
 
@@ -98,10 +99,10 @@ render() {
 }
 }
 
-RemoveDialog.propTypes = {
+DeleteDialog.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   data: PropTypes.objectOf(PropTypes.string).isRequired,
 };
-export default RemoveDialog;
+export default DeleteDialog;

@@ -233,4 +233,4 @@ EditDialog.propTypes = {
   handleEdit: PropTypes.func.isRequired,
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
 };
-export default withStyles(useStyles)(EditDialog);
+export default withStyles(useStyles)(EditDialog)
