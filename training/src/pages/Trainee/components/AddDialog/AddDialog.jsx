@@ -1,16 +1,15 @@
+/* eslint-disable no-console */
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Button, Dialog, DialogTitle, DialogContent, DialogContentText,
-  DialogActions, CircularProgress,
+  Button, Dialog, DialogTitle, DialogContent, DialogContentText, CircularProgress,
 } from '@material-ui/core';
 import { Email, VisibilityOff, Person } from '@material-ui/icons';
 import { withStyles } from '@material-ui/core/styles';
-import localStorage from 'local-storage';
-import schema from './Schema';
+import schema from './DialogSchema';
 import DialogField from './DialogField';
-import { MyContext } from '../../../../contexts';
 import callApi from '../../../../libs/utils/api';
+import { MyContext } from '../../../../contexts';
 
 const stylePassword = () => ({
   passwordField: {
@@ -38,6 +37,8 @@ class AddDialog extends React.Component {
       password: '',
       confirmPassword: '',
       loading: false,
+      hasError: false,
+      message: '',
       touched: {
         name: false,
         email: false,
@@ -51,6 +52,34 @@ class AddDialog extends React.Component {
     this.setState({ [key]: value });
   };
 
+  onClickHandler = async (data, openSnackBar) => {
+    this.setState({
+      loading: true,
+      hasError: true,
+    });
+    const response = await callApi(data, 'post', '/trainee');
+    console.log('data:', data);
+    this.setState({ loading: false });
+    console.log('res:', response);
+    if (response.status !== 'undefined') {
+      this.setState({
+        hasError: false,
+        message: 'This is a successfully added trainee message',
+      }, () => {
+        const { message } = this.state;
+        openSnackBar(message, 'success');
+      });
+    } else {
+      this.setState({
+        hasError: false,
+        message: 'Error in submitting',
+      }, () => {
+        const { message } = this.state;
+        openSnackBar(message, 'error');
+      });
+    }
+  }
+
     hasErrors = () => {
       try {
         schema.validateSync(this.state);
@@ -60,6 +89,7 @@ class AddDialog extends React.Component {
       return false;
     }
 
+    // eslint-disable-next-line consistent-return
     getError = (field) => {
       const { touched } = this.state;
       if (touched[field] && this.hasErrors()) {
@@ -70,7 +100,6 @@ class AddDialog extends React.Component {
           return err.message;
         }
       }
-      return '';
     };
 
     isTouched = (field) => {
@@ -90,33 +119,6 @@ class AddDialog extends React.Component {
       return '';
     }
 
-    onClickHandler = async (data, openSnackBar) => {
-      this.setState({
-        loading: true,
-        hasError: true,
-      });
-      await callApi(data, 'post', 'trainee');
-      this.setState({ loading: false });
-      const Token = localStorage.get('token');
-      if (Token !== 'undefined') {
-        this.setState({
-          hasError: false,
-          message: 'This is a successfully added trainee message',
-        }, () => {
-          const { message } = this.state;
-          openSnackBar(message, 'success');
-        });
-      } else {
-        this.setState({
-          hasError: false,
-          message: 'error in submitting',
-        }, () => {
-          const { message } = this.state;
-          openSnackBar(message, 'error');
-        });
-      }
-    }
-
     formReset = () => {
       this.setState({
         name: '',
@@ -131,8 +133,10 @@ class AddDialog extends React.Component {
       const {
         open, onClose, classes,
       } = this.props;
+      // eslint-disable-next-line no-shadow
       const {
-        name, email, password, confirmPassword, loading,
+        // eslint-disable-next-line no-shadow
+        name, email, password, loading,
       } = this.state;
       const textBox = [];
       Object.keys(constant).forEach((key) => {
@@ -149,7 +153,7 @@ class AddDialog extends React.Component {
 
       return (
         <>
-          <Dialog open={open} onClose={onClose}>
+          <Dialog open={open} onClose={onClose} aria-labelledby="form-dialog-title">
             <DialogTitle id="form-dialog-title">Add Trainee</DialogTitle>
             <DialogContent>
               <DialogContentText>
@@ -174,19 +178,17 @@ class AddDialog extends React.Component {
                 </div>
               </div>
           &nbsp;
-            </DialogContent>
-            <DialogActions>
               <div align="right">
                 <Button onClick={onClose} color="primary">CANCEL</Button>
                 <MyContext.Consumer>
                   {({ openSnackBar }) => (
                     <Button
-                      color="primary"
                       variant="contained"
+                      color="primary"
                       disabled={this.hasErrors()}
                       onClick={() => {
                         this.onClickHandler({
-                          name, email, password, confirmPassword,
+                          name, email, password, role: 'trainee',
                         }, openSnackBar);
                         this.formReset();
                       }}
@@ -200,7 +202,7 @@ class AddDialog extends React.Component {
                   )}
                 </MyContext.Consumer>
               </div>
-            </DialogActions>
+            </DialogContent>
           </Dialog>
         </>
       );

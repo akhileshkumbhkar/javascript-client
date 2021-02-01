@@ -1,6 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import TraineeList from './TraineeList';
 import TraineeDetail from './TraineeDetail';
 
@@ -16,4 +16,5 @@ function Trainee(props) {
 Trainee.propTypes = {
   match: PropTypes.objectOf(PropTypes.object).isRequired,
 };
+
 export default Trainee;

@@ -6,7 +6,7 @@ import {
   withStyles, Card, CardContent, Typography, CardMedia, Button,
 } from '@material-ui/core';
 import trainees from './data/trainee';
-import NotFound from '../NoMatch';
+import NoMatch from '../NoMatch';
 
 const style = (theme) => ({
   root: {
@@ -40,14 +40,14 @@ const style = (theme) => ({
   },
 });
 
-function TraineeDetails(props) {
+function TraineeDetail(props) {
   const { classes } = props;
   const { match } = props;
   const traineeData = trainees.find(({ id }) => id === match.params.traineeId);
   const getDateFormatted = () => moment(traineeData.createdAt).format('dddd, MMMM Do YYYY, h:mm:ss a');
   if (traineeData === undefined) {
     return (
-      <Route component={NotFound} />
+      <Route component={NoMatch} />
     );
   }
   return (
@@ -76,8 +76,8 @@ function TraineeDetails(props) {
     </>
   );
 }
-TraineeDetails.propTypes = {
+TraineeDetail.propTypes = {
   match: PropTypes.objectOf(PropTypes.object).isRequired,
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
 };
-export default withStyles(style)(TraineeDetails);
+export default withStyles(style)(TraineeDetail);

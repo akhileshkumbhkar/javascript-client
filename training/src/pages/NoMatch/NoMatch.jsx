@@ -18,7 +18,7 @@ const theme = createMuiTheme({
     ].join(','),
   },
 });
-function NotFound(props) {
+function NoMatch(props) {
   const { classes } = props;
   return (
     <>
@@ -37,7 +37,7 @@ function NotFound(props) {
     </>
   );
 }
-NotFound.propTypes = {
+NoMatch.propTypes = {
   classes: PropType.objectOf(PropType.string).isRequired,
 };
-export default withStyles(styles)(NotFound);
+export default withStyles(styles)(NoMatch);

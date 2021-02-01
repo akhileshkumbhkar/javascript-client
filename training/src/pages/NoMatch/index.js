@@ -1,3 +1,3 @@
-import NotFound from './NoMatch';
+import NoMatch from './NoMatch';
 
-export default NotFound;
+export default NoMatch;
