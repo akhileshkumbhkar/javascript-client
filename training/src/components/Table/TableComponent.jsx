@@ -23,38 +23,35 @@ const useStyles = (theme) => ({
       cursor: 'pointer',
     },
   },
+
 });
 
 function TableComponent(props) {
   const {
-    // eslint-disable-next-line react/prop-types
     classes, data, column, order, orderBy, onSort, onSelect, count, page, actions,
     rowsPerPage, onChangePage, onChangeRowsPerPage,
   } = props;
-  console.log(' data :', data);
 
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
-            {
-              column.map(({ align, label }) => (
-                <TableCell
-                  className={classes.column}
-                  align={align}
-                  sortDirection={orderBy === label ? order : false}
+            {column.map(({ align, label }) => (
+              <TableCell
+                className={classes.column}
+                align={align}
+                sortDirection={orderBy === label ? order : false}
+              >
+                <TableSortLabel
+                  active={orderBy === label}
+                  direction={orderBy === label ? order : 'asc'}
+                  onClick={onSort(label)}
                 >
-                  <TableSortLabel
-                    active={orderBy === label}
-                    direction={orderBy === label ? order : 'asc'}
-                    onClick={onSort(label)}
-                  >
-                    {label}
-                  </TableSortLabel>
-                </TableCell>
-              ))
-            }
+                  {label}
+                </TableSortLabel>
+              </TableCell>
+            ))}
           </TableRow>
         </TableHead>
         <TableBody>

@@ -1,6 +1,5 @@
 /* eslint-disable */
 import React from 'react';
-import * as yup from 'yup';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import {
@@ -8,31 +7,10 @@ import {
   CardContent, withStyles, InputAdornment, Button, CircularProgress,
 } from '@material-ui/core';
 import { Email, VisibilityOff, LockOutlined } from '@material-ui/icons';
-import localStorage from 'local-storage';
-import callApi from '../../libs/utils/api';
 import { MyContext } from '../../contexts/snackBarProvider/index';
+import schema from './schema';
+import Design from './style';
 
-const schema = yup.object().shape({
-  email: yup.string()
-    .trim().email().required('Email Address is a required field'),
-  password: yup.string()
-    .required('Password is required'),
-});
-const Design = (theme) => ({
-  icon: {
-    background: 'red',
-    marginLeft: theme.spacing(22),
-    marginTop: theme.spacing(2),
-  },
-  main: {
-    width: 400,
-    marginTop: theme.spacing(20),
-    marginLeft: theme.spacing(58),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-});
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -62,15 +40,18 @@ class Login extends React.Component {
     };
 
     onClickHandler = async (data , openSnackBar) => {
-      console.log('Data is :', data);
+      const { loginUser } = this.props;
+      const { email, password } = data;
+      console.log('props :', loginUser);
       this.setState({
         loading: true,
         hasError: true,
       });
-     const response = await callApi(data, 'post', '/user/login');
+     const responseLogin = await loginUser({ variables:{ email, password } });
+     const response = JSON.parse(responseLogin.data.loginUser);
       this.setState({ loading: false });
       if (response.status === 200) {
-        localStorage.set('token', response.data)
+       localStorage.setItem('token', response.data);
         this.setState({
           redirect: true,
           hasError: false,
