@@ -1,3 +1,3 @@
 export { AddDialog } from './AddDialog';
-export { RemoveDialog } from './DeleteDialog';
+export { DeleteDialog } from './DeleteDialog';
 export { EditDialog } from './EditDialog';
