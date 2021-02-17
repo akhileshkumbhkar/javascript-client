@@ -1,15 +1,21 @@
 import { gql } from 'apollo-boost';
 
 const GET_TRAINEE = gql`
-query GetTrainee($skip: Int, $limit:Int, $sort:String) {
-  getAllTrainees(payload: { skip: $skip, limit: $limit, sort: $sort}) {
-    status
+query TRAINEELIST($skip: String, $limit: String, $sort:Boolean, $search: String) {
+  getAllTrainees(payload: { skip: $skip, limit: $limit, sort: $sort, search: $search}) {
     message
-    TraineeCount
-    record{
-      name
-      email
-      createdAt
+    status
+    data{
+      count
+      records{
+        name
+        email
+        role
+        password
+        createdAt
+        originalId
+        _id
+      }
     }
     }
   }`;

@@ -40,7 +40,7 @@ const style = (theme) => ({
   },
 });
 
-function TraineeDetails(props) {
+function TraineeDetail(props) {
   const { classes } = props;
   const { match } = props;
   const traineeData = trainees.find(({ id }) => id === match.params.traineeId);
@@ -76,8 +76,8 @@ function TraineeDetails(props) {
     </>
   );
 }
-TraineeDetails.propTypes = {
+TraineeDetail.propTypes = {
   match: PropTypes.objectOf(PropTypes.object).isRequired,
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
 };
-export default withStyles(style)(TraineeDetails);
+export default withStyles(style)(TraineeDetail);

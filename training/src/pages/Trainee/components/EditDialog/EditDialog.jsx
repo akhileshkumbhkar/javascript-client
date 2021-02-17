@@ -3,22 +3,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import * as yup from 'yup';
-import { MyContext } from '../../../../contexts';
-import callApi from '../../../../libs/utils/api';
-import {
-  TextField,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  Button,
-  InputAdornment,
-  CircularProgress,
+import { TextField, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button, InputAdornment, CircularProgress,
 } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import EmailIcon from '@material-ui/icons/Email';
 import PersonIcon from '@material-ui/icons/Person';
+import { MyContext } from '../../../../contexts';
 
 const useStyles = () => ({
   button_color: {
@@ -98,16 +88,21 @@ class EditDialog extends React.Component {
     return !!iserror.length;
   };
 
-  onClickHandler = async (Data, openSnackBar) => {
-    console.log('data inside edit :', Data)
-    const { onSubmit } = this.props;
+  onClickHandler = async (data, openSnackBar) => {
+    console.log('data inside edit :', data)
+    const { onSubmit, updateTrainee, refetch } = this.props;
     this.setState({
       loading: true,
     });
-    const response = await callApi(Data, 'put', '/trainee');
-    console.log('Response :', response);
+    const id = data.originalId;
+    const { name, email } = this.state;
+    console.log('Edited data is', id, name , email);
+    // const dataToUpdate = { name, email };
+    const response = await updateTrainee({ variables: { id, name, email } });
+    console.log('Edited Response is ===:', response);
     this.setState({ loading: false });
     if (response !== 'undefined') {
+      refetch();
       this.setState({
         message: 'Trainee Updated Successfully',
       }, () => {
@@ -123,13 +118,13 @@ class EditDialog extends React.Component {
       });
     }
   }
+
   render() {
     const {
       Editopen, handleEditClose, handleEdit, data, classes,
     } = this.props;
     const { name, email, error, loading } = this.state;
-    const { originalId: id } = data;
-    console.log('id in edit: ', id);
+    const { originalId: Id } = data;
     return (
       <div>
         <Dialog
@@ -198,29 +193,29 @@ class EditDialog extends React.Component {
               Cancel
             </Button>
             <MyContext.Consumer>
-          {({ openSnackBar }) => (
-            <Button
-              onClick={() => {
-                this.onClickHandler({ name, email, id }, openSnackBar);
-              }}
-              className={
-                (name === data.name && email === data.email) || this.hasErrors()
-                  ? classes.button_error
-                  : classes.button_color
-              }
-              color="primary"
-              disabled={
-                !!((name === data.name && email === data.email) || this.hasErrors())
-              }
-            >
-               {loading && (
+              {({ openSnackBar }) => (
+                <Button
+                  onClick={() => {
+                    this.onClickHandler( data, openSnackBar);
+                  }}
+                  className={
+                    (name === data.name && email === data.email) || this.hasErrors()
+                      ? classes.button_error
+                      : classes.button_color
+                  }
+                  color="primary"
+                  disabled={
+                    !!((name === data.name && email === data.email) || this.hasErrors())
+                  }
+                >
+                  {loading && (
                     <CircularProgress size={15} />
                   )}
                   {loading && <span>Submitting</span>}
                   {!loading && <span>Submit</span>}
-            </Button>
-                 )}
-                 </MyContext.Consumer>
+                </Button>
+              )}
+            </MyContext.Consumer>
           </DialogActions>
         </Dialog>
       </div>
@@ -233,4 +228,5 @@ EditDialog.propTypes = {
   handleEdit: PropTypes.func.isRequired,
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
 };
+
 export default withStyles(useStyles)(EditDialog);

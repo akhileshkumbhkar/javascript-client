@@ -1,7 +1,7 @@
-/* eslint-disable no-console */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, withStyles } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { graphql } from '@apollo/react-hoc';
@@ -9,7 +9,7 @@ import Compose from 'lodash.flowright';
 import { AddDialog, EditDialog, DeleteDialog } from './components/index';
 import { TableComponent } from '../../components';
 import { GET_TRAINEE } from './Query';
-import { MyContext } from '../../contexts/index';
+import { MyContext } from '../../contexts';
 
 const useStyles = (theme) => ({
   root: {
@@ -118,28 +118,30 @@ class TraineeList extends React.Component {
     console.log('Edited Item ', { name, email });
   };
 
-  handlePageChange = (refetch) => (event, newPage) => {
+  handleChangePage = (refetch) => (event, newPage) => {
     const { rowsPerPage } = this.state;
     this.setState({
       page: newPage,
     }, () => {
-      refetch({ skip: newPage * (rowsPerPage.length), limit: rowsPerPage.length });
+      refetch({ skip: String(newPage * rowsPerPage), limit: String(rowsPerPage) });
     });
   }
 
   render() {
     const {
-      open, order, orderBy, page,
-      rowsPerPage, EditOpen, RemoveOpen, editData, deleteData,
+      open, order, orderBy, page, rowsPerPage, RemoveOpen, EditOpen, editData, deleteData,
     } = this.state;
     const { classes } = this.props;
     const {
       data: {
-        getAllTrainees: { record = [], TraineeCount = 0 } = {},
+        getAllTrainees: { data = [] } = {},
         refetch,
         loading,
       },
     } = this.props;
+    const Records = data ? data.records : [];
+    const Totalcount = data ? data.count : 0;
+    console.log('records is :', data);
     return (
       <>
         <div className={classes.root}>
@@ -161,20 +163,21 @@ class TraineeList extends React.Component {
             handleEditClose={this.handleEditClose}
             handleEdit={this.handleEdit}
             data={editData}
+            refetch={refetch}
           />
           <br />
           <DeleteDialog
+            open={RemoveOpen}
             data={deleteData}
             onClose={this.handleRemoveClose}
             onSubmit={this.handleRemove}
-            open={RemoveOpen}
+            refetch={refetch}
           />
-          <br />
           <br />
           <TableComponent
             loader={loading}
             id="id"
-            data={record}
+            data={Records}
             column={
               [
                 {
@@ -209,9 +212,9 @@ class TraineeList extends React.Component {
             orderBy={orderBy}
             order={order}
             onSelect={this.handleSelect}
-            count={TraineeCount}
+            count={Totalcount}
             page={page}
-            onChangePage={this.handlePageChange(refetch, TraineeCount)}
+            onChangePage={this.handleChangePage(refetch)}
             rowsPerPage={rowsPerPage}
             onChangeRowsPerPage={this.handleChangeRowsPerPage}
           />
@@ -228,6 +231,12 @@ TraineeList.propTypes = {
 export default Compose(
   withStyles(useStyles),
   graphql(GET_TRAINEE, {
-    options: { variables: { skip: 0, limit: 100, sort: 'name' } },
+    options:
+    {
+      variables:
+      {
+        skip: '0', limit: '5', sort: true, search: '',
+      },
+    },
   }),
 )(TraineeList);
